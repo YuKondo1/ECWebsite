@@ -1,0 +1,53 @@
+header {
+	width: 100%;
+	max-width: 1080px;
+	margin: 0 auto;
+}
+
+.div1 {
+	width: 100%;
+	max-width: 1080px;
+	margin: 0 auto;
+}
+
+h5 {
+	margin-top: 20px;
+}
+
+main {
+	padding-bottom: 60px;
+}
+
+footer {
+	width: 100%;
+	max-width: 1080px;
+	margin: 0 auto;
+}
+
+a {
+	color: #808080;
+}
+
+a:hover {
+	color: #a9a9a9;
+	opacity: 0.8;
+}
+
+.search-gray {
+	color: #808080;
+}
+
+.search-gray:hover {
+	color: #696969;
+}
+
+.list {
+	list-style: none;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+F
