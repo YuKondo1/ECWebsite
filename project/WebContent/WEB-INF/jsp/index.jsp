@@ -43,7 +43,7 @@
 							class="fas fa-shopping-cart fa-lg"></i></a></li>
 				</ul>
 				<hr class="d-md-none border-secondary my-2">
-				<form class="form-inline ml-right">
+				<form action="SearchResult" class="form-inline ml-right">
 					<label class="sr-only" for="kw">検索キーワード</label> <input
 						type="search"
 						class="form-control form-control-sm mr-sm-2 my-2 my-md-0"
@@ -65,7 +65,7 @@
 	<div class="row div1">
 		<div class="col-3 d-none d-md-block"
 			style="height: 300px; margin-top: 40px;">
-			<form>
+			<form action="LoginResult" method="POST">
 				<dl>
 					<div class="form-group mb-2">
 						<dt class="text-muted">会員ID</dt>
@@ -91,108 +91,38 @@
 		</div>
 		<div class="col-12 col-md-9" style="height: 300px">
 			<h5 class="text-muted bg-light">お知らせ</h5>
-			<table class="text-muted">
-				<tr>
-					<th>2018/3/1</th>
-					<td>&nbsp;&nbsp;</td>
-					<td>あなごの黒米寿司 入荷しました。</td>
-				</tr>
-				<tr>
-					<th>2018/2/1</th>
-					<td>&nbsp;&nbsp;</td>
-					<td>あなごの笹蒸し 入荷しました。</td>
-				</tr>
-				<tr>
-					<th>2018/1/1</th>
-					<td>&nbsp;&nbsp;</td>
-					<td>あなごの切り落とし 入荷しました。</td>
-				</tr>
-			</table>
+			<c:forEach var="" items="${}">
+				<table class="text-muted">
+					<tr>
+						<th>2018/3/1</th>
+						<td>&nbsp;&nbsp;</td>
+						<td>あなごの黒米寿司 入荷しました。</td>
+					</tr>
+					<tr>
+						<th>2018/2/1</th>
+						<td>&nbsp;&nbsp;</td>
+						<td>あなごの笹蒸し 入荷しました。</td>
+					</tr>
+					<tr>
+						<th>2018/1/1</th>
+						<td>&nbsp;&nbsp;</td>
+						<td>あなごの切り落とし 入荷しました。</td>
+					</tr>
+				</table>
+			</c:forEach>
 		</div>
 	</div>
 	<div class="row div1">
 		<div class="col-12 text-muted bg-light text-center">商品一覧</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
+
+		<c:forEach var="" items="${}">
+			<div class="col-6 col-md-4 text-muted text-center" style="height: 350px; padding: 20px;">
+				<a href="#" style="text-decoration: none;"> <img src="img/bento.jpg" class="img-fluid" style="margin: 20px 0px; max-height: 200px;">
 				<p>あなごめし</p>
 				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-6 col-md-4 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
+				</a>
+			</div>
+		</c:forEach>
 	</div>
 	</main>
 	<footer class="footer mt-auto py-3 bg-light">

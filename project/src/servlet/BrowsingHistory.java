@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class index
+ * Servlet implementation class browsingHistory
  */
-@WebServlet("/index")
-public class index extends HttpServlet {
+@WebServlet("/browsingHistory")
+public class BrowsingHistory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public index() {
+    public BrowsingHistory() {
         super();
         // TODO Auto-generated constructor stub
     }
