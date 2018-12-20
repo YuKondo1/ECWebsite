@@ -60,7 +60,7 @@
 	<div class="row div1 text-center">
 		<div class="col-12" style="height: 350px">
 			<h5 class="text-muted bg-light">登録情報確認</h5>
-			<form>
+			<form action="UserRegisterResult" method="POST">
 				<dl>
 					<div class="form-group mb-2" style="margin-top: 30px">
 						<dt class="text-muted">会員ID</dt>

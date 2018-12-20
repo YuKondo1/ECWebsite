@@ -6,12 +6,23 @@ import java.util.Date;
 public class UserInfoBeans  implements Serializable {
 
 	private int id;
-	private int loginId;
+	private String loginId;
 	private String name;
-	private int phone;
-	private int postalCode;
+	private String password;
+	private String phone;
+	private String postalCode;
 	private String address;
 	private Date createDate;
+
+	// コンストラクタ
+	public UserInfoBeans() {
+		this.loginId = "";
+		this.name = "";
+		this.password = "";
+		this.phone = "";
+		this.postalCode = "";
+		this.address = "";
+	}
 
 	public int getId() {
 		return id;
@@ -19,10 +30,10 @@ public class UserInfoBeans  implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getLoginId() {
+	public String getLoginId() {
 		return loginId;
 	}
-	public void setLoginId(int loginId) {
+	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
 	public String getName() {
@@ -31,16 +42,22 @@ public class UserInfoBeans  implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPhone() {
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
-	public void setPostalCode(int postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 	public String getAddress() {
@@ -53,6 +70,17 @@ public class UserInfoBeans  implements Serializable {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public void setUpdateUserInfoBeans(int id, String loginId, String name, String password, String phone, String postalCode, String address, Date createDate) {
+		this.id = id;
+		this.loginId = loginId;
+		this.name = name;
+		this.password = password;
+		this.phone = phone;
+		this.postalCode = postalCode;
+		this.address = address;
 		this.createDate = createDate;
 	}
 }

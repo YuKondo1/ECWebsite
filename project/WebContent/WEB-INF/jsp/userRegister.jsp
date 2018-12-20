@@ -60,7 +60,7 @@
 	<div class="row div1 text-center">
 		<div class="col-12" style="height: 350px">
 			<h5 class="text-muted bg-light">新規登録</h5>
-			<form>
+			<form action="UserRegisterConfirm" method="POST">
 				<dl>
 					<div class="form-group mb-2" style="margin-top: 30px">
 						<dt class="text-muted">会員ID</dt>
@@ -83,7 +83,7 @@
 					<div class="form-group mb-2" style="margin-top: 30px">
 						<dt class="text-muted">パスワード（確認用）</dt>
 						<dd>
-							<input type="password" name="password">
+							<input type="password" name="PasswordConfirm">
 						</dd>
 					</div>
 					<div class="form-group mb-2" style="margin-top: 30px">
@@ -105,8 +105,7 @@
 						</dd>
 					</div>
 					<dt>
-						<input type="submit" class="btn btn-outline-secondary"
-							value="新規登録" style="margin-top: 40px">
+						<input type="submit" class="btn btn-outline-secondary" value="新規登録" style="margin-top: 40px" name="action">
 					</dt>
 				</dl>
 			</form>
