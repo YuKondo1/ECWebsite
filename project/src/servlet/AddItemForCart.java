@@ -12,34 +12,43 @@ import javax.servlet.http.HttpSession;
 
 import base.Helper;
 import beans.ItemBeans;
+import dao.ItemDAO;
 
 /**
- * Servlet implementation class cart
+ * Servlet implementation class AddItemForCart
  */
-@WebServlet("/Cart")
-public class Cart extends HttpServlet {
+@WebServlet("/AddItemForCart")
+public class AddItemForCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+
 		try {
+			//選択された商品のIDを型変換し利用
+			int id = Integer.parseInt(request.getParameter("item_id"));
+			//対象のアイテム情報を取得
+			ItemBeans item = ItemDAO.getItemById(id);
+
+			//追加した商品を表示するためリクエストパラメーターにセット
+			request.setAttribute("item", item);
+
+			//カートを取得
 			ArrayList<ItemBeans> cart = (ArrayList<ItemBeans>) session.getAttribute("cart");
-			//買い物かご
-			ArrayList<ItemBeans> cartList = cart;
-			//合計金額
-			int totalPrice = Helper.getTotalItemPrice(cartList);
+
 			//セッションにカートがない場合カートを作成
 			if (cart == null) {
 				cart = new ArrayList<ItemBeans>();
-				session.setAttribute("cart", cart);
 			}
-			String cartActionMessage = "";
-			//カートに商品が入っていないなら
-			if(cart.size() == 0) {
-				cartActionMessage = "カートに商品がありません";
-			}
-			request.setAttribute("cartActionMessage", cartActionMessage);
-			request.setAttribute("totalPrice", totalPrice);
+			//カートに商品を追加。
+			cart.add(item);
+			//カート情報更新
+			session.setAttribute("cart", cart);
+			request.setAttribute("cartActionMessage", "商品を追加しました");
 			request.getRequestDispatcher(Helper.CART_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,9 +56,4 @@ public class Cart extends HttpServlet {
 			response.sendRedirect("Error");
 		}
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	}
-
 }

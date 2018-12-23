@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import base.DBManager;
-import base.Helper;
 import beans.UserInfoBeans;
 
 public class UserInfoDAO {
@@ -49,12 +48,12 @@ public class UserInfoDAO {
 		PreparedStatement st = null;
 		try {
 			con = DBManager.getConnection();
-			st = con.prepareStatement("SELECT * FROM t_user WHERE login_id = ?");
+			st = con.prepareStatement("SELECT * FROM u_info WHERE login_id = ?");
 			st.setString(1, loginId);
 			ResultSet rs = st.executeQuery();
 			int userId = 0;
 			while (rs.next()) {
-				if (Helper.getSha256(password).equals(rs.getString("login_password"))) {
+				if (password.equals(rs.getString("password"))) {
 					userId = rs.getInt("id");
 					System.out.println("login succeeded");
 					break;
@@ -127,7 +126,6 @@ public class UserInfoDAO {
 		boolean isOverlap = false;
 		Connection con = null;
 		PreparedStatement st = null;
-
 		try {
 			con = DBManager.getConnection();
 			// 入力されたlogin_idが存在するか調べる
@@ -135,7 +133,6 @@ public class UserInfoDAO {
 			st.setString(1, loginId);
 			st.setInt(2, userId);
 			ResultSet rs = st.executeQuery();
-
 			System.out.println("searching loginId by inputLoginId has been completed");
 
 			if (rs.next()) {
@@ -149,9 +146,37 @@ public class UserInfoDAO {
 				con.close();
 			}
 		}
-
 		System.out.println("overlap check has been completed");
 		return isOverlap;
 	}
 
+	public static UserInfoBeans getUserInfoByUserId(int userId) throws SQLException {
+		UserInfoBeans uib = new UserInfoBeans();
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			con = DBManager.getConnection();
+			st = con.prepareStatement("SELECT * FROM u_info WHERE id =" + userId);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				uib.setId(rs.getInt("id"));
+				uib.setLoginId(rs.getString("login_id"));
+				uib.setName(rs.getString("name"));
+				uib.setPassword(rs.getString("password"));
+				uib.setPhone(rs.getString("phone"));
+				uib.setPostalCode(rs.getString("postal_code"));
+				uib.setAddress(rs.getString("address"));
+				uib.setCreateDate(rs.getDate("create_date"));
+			}
+			System.out.println("getUserInfoByUserId completed");
+			return uib;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
 }

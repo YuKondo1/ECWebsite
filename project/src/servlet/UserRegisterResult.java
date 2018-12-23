@@ -41,10 +41,8 @@ public class UserRegisterResult extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
 		HttpSession session = request.getSession();
 		try {
-
 			String inputLoginId = request.getParameter("loginId");
 			String inputName = request.getParameter("name");
 			String inputPassword = request.getParameter("password");
@@ -61,7 +59,7 @@ public class UserRegisterResult extends HttpServlet {
 			uib.setAddress(inputAddress);
 
 			// 登録が確定されたかどうか確認するための変数
-			String confirmed = request.getParameter("confirm_button");
+			String confirmed = request.getParameter("confirmed");
 			switch (confirmed) {
 			case "cancel":
 				session.setAttribute("uib", uib);
@@ -69,7 +67,7 @@ public class UserRegisterResult extends HttpServlet {
 				break;
 			case "UserRegister":
 				UserInfoDAO.insertUser(uib);
-				request.setAttribute("udb", uib);
+				request.setAttribute("uib", uib);
 				request.getRequestDispatcher(Helper.USER_REGISTER_RESULT_PAGE).forward(request, response);
 				break;
 			}

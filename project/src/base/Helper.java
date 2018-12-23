@@ -2,8 +2,11 @@ package base;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
+
+import beans.ItemBeans;
 
 public class Helper {
 	//閲覧履歴
@@ -99,5 +102,13 @@ public class Helper {
 			e.printStackTrace();
 		}
 		return buf.toString();
+	}
+
+	public static int getTotalItemPrice(ArrayList<ItemBeans> items) {
+		int total = 0;
+		for (ItemBeans item : items) {
+			total += item.getPrice();
+		}
+		return total;
 	}
 }

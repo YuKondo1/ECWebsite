@@ -30,7 +30,7 @@ public class UserUpdateConfirm extends HttpServlet {
 			//エラーメッセージを格納する変数
 			String validationMessage = "";
 			UserInfoBeans uib = new UserInfoBeans();
-			uib.setUpdateUserInfoBeans((int) session.getAttribute("id"), request.getParameter("loginId"), request.getParameter("name"), request.getParameter("password"), request.getParameter("phone"), request.getParameter("postalCode"), request.getParameter("address"), (Date) request.getAttribute("createDate"));
+			uib.setUpdateUserInfoBeans((int) session.getAttribute("id"), request.getParameter("loginId"), request.getParameter("name"), request.getParameter("password"), request.getParameter("phone"), request.getParameter("postalCode"), request.getParameter("address"), (Date) session.getAttribute("createDate"));
 
 
 			//ログインIDの入力規則チェック 英数字 ハイフン アンダースコアのみ入力可能
@@ -41,7 +41,6 @@ public class UserUpdateConfirm extends HttpServlet {
 			if ( UserInfoDAO.isOverlapLoginId(uib.getLoginId(),(int) session.getAttribute("id"))) {
 				validationMessage = "ほかのユーザーが使用中のログインIDです";
 			}
-
 			//バリデーションエラーメッセージがないなら確認画面へ
 			if(validationMessage.length() == 0){
 				//確認画面へ
@@ -52,7 +51,6 @@ public class UserUpdateConfirm extends HttpServlet {
 				session.setAttribute("validationMessage", validationMessage);
 				response.sendRedirect("UserInfo");
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());

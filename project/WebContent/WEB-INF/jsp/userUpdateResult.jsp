@@ -11,7 +11,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="Materialize/css/style.css">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet"
@@ -20,42 +20,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-md navbar-light bg-white"
-			style="max-width: 1080px; margin: 0 auto;">
-			<a href="index.html" class="navbar-brand"><img
-				src="img/top_logo_ueno.png" style="width: 50px; height: 50px"></a>
-			<button class="navbar-toggler" data-toggle="collapse"
-				data-target="#nav1">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="nav1">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="userFavorite.html"
-						class="nav-link font-weight-bold">お気に入り</a></li>
-					<li class="nav-item"><a href="browsingHistory.html"
-						class="nav-link font-weight-bold">閲覧履歴</a></li>
-					<li class="nav-item"><a href="user.html"
-						class="nav-link font-weight-bold">マイページ</a></li>
-				</ul>
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="buy.html" class="nav-link"><i
-							class="fas fa-shopping-cart fa-lg"></i></a></li>
-				</ul>
-				<hr class="d-md-none border-secondary my-2">
-				<form class="form-inline ml-right">
-					<label class="sr-only" for="kw">検索キーワード</label> <input
-						type="search"
-						class="form-control form-control-sm mr-sm-2 my-2 my-md-0"
-						placeholder="キーワード" id="kw">
-					<button type="submit" class="btn btn-white btn-sm my-2 my-md-0"
-						name="searchKeyWord">
-						<i class="fas fa-search fa-lg"></i>
-					</button>
-				</form>
-			</div>
-		</nav>
-	</header>
+<jsp:include page="/baselayout/headerNoFixedTop.jsp"/>
 	<main>
 	<div class="row div1 text-center">
 		<div class="col-12" style="height: 350px">
@@ -87,7 +52,7 @@
 						<dd>東京都テスト区1-1-1</dd>
 					</div>
 					<dt>
-						<input type="submit" class="btn btn-outline-secondary"
+						<input type="submit" class="btn btn-outline-success"
 							value="マイページへ移動" style="margin-top: 40px">
 					</dt>
 				</dl>

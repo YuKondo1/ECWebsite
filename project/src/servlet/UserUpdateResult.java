@@ -30,8 +30,8 @@ public class UserUpdateResult extends HttpServlet {
 			UserInfoBeans uib = new UserInfoBeans();
 			uib.setUpdateUserInfoBeans((int) session.getAttribute("id"), request.getParameter("loginId"), request.getParameter("name"), request.getParameter("password"), request.getParameter("phone"), request.getParameter("postalCode"), request.getParameter("address"), (Date) request.getAttribute("createDate"));
 			// 確定ボタンが押されたかを確認する変数
-			String confirmed = request.getParameter("confirmButton");
-			switch (confirmed) {
+			String action = request.getParameter("action");
+			switch (action) {
 			// 確定ボタンが押されていなかった場合はセッションに入力内容を保持してユーザー情報画面へ
 			case "cancel":
 				session.setAttribute("uibUp", uib);
