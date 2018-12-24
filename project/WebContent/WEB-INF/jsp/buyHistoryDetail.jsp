@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,60 +27,18 @@
 	<div class="row div1">
 		<div class="col-12 text-muted bg-light text-center"
 			style="margin-top: 80px;">購入履歴詳細</div>
-		<div class="col-4 col-md-3 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-4 col-md-3 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-4 col-md-3 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-4 col-md-3 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-4 col-md-3 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
-		<div class="col-4 col-md-3 text-muted text-center"
-			style="height: 350px; padding: 20px;">
-			<a href="#" style="text-decoration: none;"> <img
-				src="img/bento.jpg" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
-				<p>あなごめし</p>
-				<p>3000円（税込）</p>
-			</a>
-		</div>
+		<c:forEach var="item" items="${itemList}">
+			<div class="col-6 col-md-4 text-muted text-center" style="height: 350px; padding: 20px;">
+				<a href="ItemDetail?id=${item.id}" style="text-decoration: none;"> <img src="${item.image}" class="img-fluid" style="margin: 20px 0px; max-height: 200px;">
+				<p>${item.name}</p>
+				<p>
+				<c:set var="foo" value="${item.price}"/>
+				<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
+				${fn:replace(result, ",", ",")}円（税込）
+				</p>
+				</a>
+			</div>
+		</c:forEach>
 	</div>
 	</main>
 <jsp:include page="/baselayout/footer.jsp"/>

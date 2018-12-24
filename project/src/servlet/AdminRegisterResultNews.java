@@ -12,31 +12,40 @@ import javax.servlet.http.HttpSession;
 
 import base.Helper;
 import beans.ItemBeans;
-import dao.UserBuyDetailDAO;
+import beans.NewsBeans;
+import dao.ItemDAO;
+import dao.NewsDAO;
 
 /**
- * Servlet implementation class buyHistoryDetail
+ * Servlet implementation class AdminRegisterResultNews
  */
-@WebServlet("/BuyHistoryDetail")
-public class BuyHistoryDetail extends HttpServlet {
+@WebServlet("/AdminRegisterResultNews")
+public class AdminRegisterResultNews extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
-			int buyId = Integer.parseInt(request.getParameter("id"));
-			ArrayList<ItemBeans> itemList = UserBuyDetailDAO.getUserBuyDetailsByBuyId(buyId);
+			String inputInfo = request.getParameter("info");
+
+			NewsDAO.setNews(inputInfo);
+
+			ArrayList<NewsBeans> newsList = NewsDAO.getAllNews();
+			request.setAttribute("newsList", newsList);
+
+			ArrayList<ItemBeans> itemList = ItemDAO.getAllItem();
 			request.setAttribute("itemList", itemList);
-			request.getRequestDispatcher(Helper.BUY_HISTORY_DETAIL_PAGE).forward(request, response);
+
+			request.getRequestDispatcher(Helper.INDEX_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());
 			response.sendRedirect("Error");
 		}
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	}
-
 }

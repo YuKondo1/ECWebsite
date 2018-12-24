@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,19 +27,21 @@
 	<div class="row div1" style="margin-top: 100px;">
 		<div class="col-2 col-md-2 text-muted text-center"
 			style="height: 600px; padding: 20px;"></div>
-		<div class="col-8 col-md-8 text-muted text-center"
-			style="height: 600px; padding: 20px;">
-			<img src="${item.image}" class="img-fluid"
-				style="margin: 20px 0px; max-height: 200px;">
+		<div class="col-8 col-md-8 text-muted text-center" style="height: 600px; padding: 20px;">
+			<img src="${item.image}" class="img-fluid" style="margin: 20px 0px; max-height: 200px;">
 			<p>${item.name}</p>
-			<p>${item.price}円（税込）</p>
+			<p>
+			<c:set var="foo" value="${item.price}"/>
+			<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
+			${fn:replace(result, ",", ",")}円（税込）
+			</p>
 			<p style="text-align: left;">${item.itemDetail}</p>
 		</div>
 		<div class="col-2 col-md-2 text-muted text-center"
 			style="height: 600px; padding: 20px;"></div>
 		<div class="col-12 text-center">
 			<a href="UserFavorite?id=${item.id}" class="btn btn-outline-secondary btn-sm my-2 my-md-0"><i class="fas fa-heart fa-lg"></i>お気に入り登録</a>
-			<a href="Cart?id=${item.id}" class="btn btn-outline-success btn-sm my-2 my-md-0" style="margin-left: 20px;"><i class="fas fa-cart-plus fa-lg"></i>カートに入れる</a>
+			<a href="AddItemForCart?id=${item.id}" class="btn btn-outline-success btn-sm my-2 my-md-0" style="margin-left: 20px;"><i class="fas fa-cart-plus fa-lg"></i>カートに入れる</a>
 		</div>
 	</div>
 	</main>

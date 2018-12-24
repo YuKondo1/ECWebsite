@@ -9,6 +9,22 @@ import javax.servlet.http.HttpSession;
 import beans.ItemBeans;
 
 public class Helper {
+	//管理者用ページ
+	public static final String ADMIN_PAGE = "/WEB-INF/jsp/admin.jsp";
+	//管理者用注文確認ページ
+	public static final String ADMIN_CONFIRM_USER_BUY_PAGE = "/WEB-INF/jsp/adminConfirmUserBuy.jsp";
+	//管理者用注文詳細確認ページ
+	public static final String ADMIN_CONFIRM_USER_BUY_DETAIL_PAGE = "/WEB-INF/jsp/adminConfirmUserBuyDetail.jsp";
+	//管理者用商品削除ページ
+	public static final String ADMIN_DELETE_ITEM_PAGE = "/WEB-INF/jsp/adminDeleteItem.jsp";
+	//管理者用お知らせ削除ページ
+	public static final String ADMIN_DELETE_NEWS_PAGE = "/WEB-INF/jsp/adminDeleteNews.jsp";
+	//管理者用商品登録ページ
+	public static final String ADMIN_REGISTER_ITEM_PAGE = "/WEB-INF/jsp/adminRegisterItem.jsp";
+	//管理者用お知らせ登録ページ
+	public static final String ADMIN_REGISTER_NEWS_PAGE = "/WEB-INF/jsp/adminRegisterNews.jsp";
+	//管理者用商品更新ページ
+	public static final String ADMIN_UPDATE_ITEM_PAGE = "/WEB-INF/jsp/adminUpdateItem.jsp";
 	//閲覧履歴
 	public static final String BROWSING_HISTORY_PAGE = "/WEB-INF/jsp/browsingHistory.jsp";
 	//購入

@@ -11,23 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import base.Helper;
-import beans.UserBuyBeans;
-import dao.UserBuyDAO;
+import beans.NewsBeans;
+import dao.NewsDAO;
 
 /**
- * Servlet implementation class buyHistory
+ * Servlet implementation class AdminDeleteNews
  */
-@WebServlet("/BuyHistory")
-public class BuyHistory extends HttpServlet {
+@WebServlet("/AdminDeleteNews")
+public class AdminDeleteNews extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
-			int userId = (int)session.getAttribute("userId");
-			ArrayList<UserBuyBeans> ubbList = UserBuyDAO.getUserBuyById(userId);
-			request.setAttribute("ubbList", ubbList);
-			request.getRequestDispatcher(Helper.BUY_HISTORY_PAGE).forward(request, response);
+			ArrayList<NewsBeans> newsList = NewsDAO.getAllNews();
+			request.setAttribute("newsList", newsList);
+			request.getRequestDispatcher(Helper.ADMIN_DELETE_NEWS_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());

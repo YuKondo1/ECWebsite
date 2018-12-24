@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +32,7 @@
 				<table class="text-muted">
 				<c:forEach var="news" items="${newsList}">
 					<tr>
-						<th>${news.createDate}</th>
+						<th><fmt:formatDate value="${news.createDate}" pattern="yyyy年MM月dd日"/></th>
 						<td>&nbsp;&nbsp;</td>
 						<td>${news.info}</td>
 					</tr>
@@ -82,7 +84,11 @@
 			<div class="col-6 col-md-4 text-muted text-center" style="height: 350px; padding: 20px;">
 				<a href="ItemDetail?id=${item.id}" style="text-decoration: none;"> <img src="${item.image}" class="img-fluid" style="margin: 20px 0px; max-height: 200px;">
 				<p>${item.name}</p>
-				<p>${item.price}円（税込）</p>
+				<p>
+				<c:set var="foo" value="${item.price}"/>
+				<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
+				${fn:replace(result, ",", ",")}円（税込）
+				</p>
 				</a>
 			</div>
 		</c:forEach>

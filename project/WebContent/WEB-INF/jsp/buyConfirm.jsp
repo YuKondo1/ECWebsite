@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,11 +24,10 @@
 	href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
 </head>
 <body>
-<jsp:include page="/baselayout/headerNoImage.jsp"/>
+<jsp:include page="/baselayout/headerNoFixedTop.jsp"/>
 	<main>
 	<div class="row div1">
-		<div class="col-12 text-muted bg-light text-center"
-			style="margin-top: 80px; margin-bottom: 40px;">購入手続き確認</div>
+		<div class="col-12 text-muted bg-light text-center" style="margin-bottom: 40px;">購入手続き確認</div>
 		<div class="col-md-2"></div>
 		<div class="col-12 col-md-8">
 			<table class="table text-center text-muted">
@@ -37,29 +38,37 @@
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach var="item" items="${cart}" varStatus="status">
 					<tr>
-						<td>あなごめし</td>
-						<td>3000円</td>
+						<td>${item.name}</td>
+						<td>
+						<c:set var="foo" value="${item.price}"/>
+						<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
+						${fn:replace(result, ",", ",")}円（税込）
+						</td>
 					</tr>
-					<tr>
-						<td>あなごめし</td>
-						<td>3000円</td>
-					</tr>
-					<tr>
-						<td>配送料</td>
-						<td>500円</td>
-					</tr>
+				</c:forEach>
+				</tbody>
 			</table>
-			</tbody>
 		</div>
 		<div class="col-md-2"></div>
+		<c:if test="${totalPrice != null}">
 		<div class="col-12 text-center text-muted">
-			<p style="margin-top: 20px;">合計：6500円</p>
+			<p style="margin-top: 20px;">合計：<c:set var="foo" value="${totalPrice}"/>
+			<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
+			${fn:replace(result, ",", ",")}円</p>
 			<hr style="max-width: 200px;">
 		</div>
+		</c:if>
+		<c:if test="${totalPrice == null}">
+		<div class="col-12 text-center text-muted">
+			<p style="margin-top: 20px;">合計：0円</p>
+			<hr style="max-width: 200px;">
+		</div>
+		</c:if>
 		<div class="col-12 text-center" style="margin-top: 40px;">
-			<button class="btn btn-outline-secondary">キャンセル</button>
-			<button class="btn btn-outline-success" style="margin-left: 20px;">確認</button>
+			<a href="Cart" class="btn btn-outline-secondary">キャンセル</a>
+			<a href="BuyResult?totalPrice=${totalPrice}" class="btn btn-outline-success" style="margin-left: 20px;">購入確認</a>
 		</div>
 	</div>
 	</main>

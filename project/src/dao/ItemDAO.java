@@ -21,7 +21,7 @@ public class ItemDAO {
 		ArrayList<ItemBeans> itemList = new ArrayList<ItemBeans>();
 		try {
 			conn = DBManager.getConnection();
-			st = conn.prepareStatement("SELECT * FROM item");
+			st = conn.prepareStatement("SELECT * FROM item ORDER BY name ASC");
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				ItemBeans item = new ItemBeans();
@@ -186,6 +186,28 @@ public class ItemDAO {
 		} finally {
 			if (con != null) {
 				con.close();
+			}
+		}
+	}
+
+	public static void deleteItem(int id) {
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = DBManager.getConnection();
+			st = conn.prepareStatement("DELETE FROM item WHERE id = ?;");
+			st.setInt(1, id);
+			st.executeUpdate();
+			System.out.println("deleteItem completed");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

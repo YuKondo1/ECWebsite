@@ -26,9 +26,13 @@ public class ItemDetail extends HttpServlet {
 		try {
 			//選択された商品のIDを型変換し利用
 			int id = Integer.parseInt(request.getParameter("id"));
-			//閲覧履歴を登録
 			int userId = (int)session.getAttribute("userId");
-			BrowsingHistoryDAO.insertBrowsingHistory(userId, id);
+			//閲覧履歴を登録
+			if (!BrowsingHistoryDAO.isOverlapItemId(userId,id)) {
+				BrowsingHistoryDAO.insertBrowsingHistory(userId, id);
+			}else {
+				BrowsingHistoryDAO.updateBrowsingHistory(userId, id);
+			}
 			//対象のアイテム情報を取得
 			ItemBeans item = ItemDAO.getItemById(id);
 			//リクエストパラメーターにセット
@@ -42,9 +46,6 @@ public class ItemDetail extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		doGet(request, response);

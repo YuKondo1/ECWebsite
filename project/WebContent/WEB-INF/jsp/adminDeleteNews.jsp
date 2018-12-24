@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>購入手続き完了</title>
+<title>お知らせ削除</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -25,46 +25,38 @@
 </head>
 <body>
 <jsp:include page="/baselayout/headerNoImage.jsp"/>
-	<main>
+<main>
+	<form action="AdminDeleteNewsResult" method="POST">
 	<div class="row div1">
-		<div class="col-12 text-muted bg-light text-center"
-			style="margin-top: 80px; margin-bottom: 40px;">購入手続き完了</div>
-		<div class="col-md-2"></div>
-		<div class="col-12 col-md-8">
-			<table class="table text-center text-muted">
-				<thead class="thead-light">
-					<tr>
-						<th>商品</th>
-						<th>値段</th>
-					</tr>
-				</thead>
-				<tbody>
-				<c:forEach var="item" items="${cart}" varStatus="status">
-					<tr>
-						<td>${item.name}</td>
-						<td>
-						<c:set var="foo" value="${item.price}"/>
-						<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
-						${fn:replace(result, ",", ",")}円（税込）
-						</td>
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>
+		<div class="col-12 text-muted bg-light text-center" style="margin-top: 80px; margin-bottom: 40px;">お知らせ削除</div>
+		<div class="col-1 col-sm-2 col-md-3 text-muted text-center"></div>
+		<div class="col-10 col-sm-8 col-md-6 text-muted text-left">
+		<c:forEach var="news" items="${newsList}" varStatus="status">
+			<ul class="list-unstyled border p-3">
+				<li class="media">
+					<div class="media-body">
+						<fmt:formatDate value="${news.createDate}" pattern="yyyy年MM月dd日"/><br>
+						${news.info}
+						<p></p>
+						<div class="pretty p-default p-curve p-thick">
+								<input type="checkbox" id="${status.index}" name="delete_news_id_list" value="${news.id}" />
+								<div class="state">
+									<label for=""><i class="mdi mdi-che"></i>削除</label>
+								</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			</c:forEach>
 		</div>
-		<div class="col-md-2"></div>
-		<div class="col-12 text-center text-muted">
-			<p style="margin-top: 20px;">合計：<c:set var="foo" value="${totalPrice}"/>
-			<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
-			${fn:replace(result, ",", ",")}円</p>
-			<hr style="max-width: 200px;">
-		</div>
+		<div class="col-1 col-sm-2 col-md-3"></div>
 		<div class="col-12 text-center" style="margin-top: 40px;">
-			<p class="text-muted">購入が完了しました</p>
-			<hr style="max-width: 200px;">
+			<p class="text-center">${cartActionMessage}</p>
+			<button class="btn btn-outline-secondary" type="submit" name="action">削除</button>
 		</div>
 	</div>
-	</main>
+	</form>
+</main>
 <jsp:include page="/baselayout/footer.jsp"/>
 </body>
 </html>

@@ -11,23 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import base.Helper;
-import beans.UserBuyBeans;
-import dao.UserBuyDAO;
+import beans.ItemBeans;
+import dao.ItemDAO;
 
 /**
- * Servlet implementation class buyHistory
+ * Servlet implementation class AdminDeleteItem
  */
-@WebServlet("/BuyHistory")
-public class BuyHistory extends HttpServlet {
+@WebServlet("/AdminDeleteItem")
+public class AdminDeleteItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
-			int userId = (int)session.getAttribute("userId");
-			ArrayList<UserBuyBeans> ubbList = UserBuyDAO.getUserBuyById(userId);
-			request.setAttribute("ubbList", ubbList);
-			request.getRequestDispatcher(Helper.BUY_HISTORY_PAGE).forward(request, response);
+			ArrayList<ItemBeans> itemList = ItemDAO.getAllItem();
+			request.setAttribute("itemList", itemList);
+			request.getRequestDispatcher(Helper.ADMIN_DELETE_ITEM_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMessage", e.toString());
@@ -38,4 +37,5 @@ public class BuyHistory extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
+
 }

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 	<header>
 		<nav class="navbar navbar-expand-md navbar-light bg-white fixed-top"
@@ -17,9 +18,16 @@
 					</li>
 					<% boolean isLogin = session.getAttribute("isLogin")!=null?(boolean) session.getAttribute("isLogin"):false; %>
 					<%if(isLogin){ %>
+					<c:if test="${userId != 1}">
 					<li class="nav-item">
 						<a href="User" class="nav-link font-weight-bold">マイページ</a>
 					</li>
+					</c:if>
+					<c:if test="${userId == 1}">
+					<li class="nav-item">
+						<a href="Admin" class="nav-link font-weight-bold">管理者用ページ</a>
+					</li>
+					</c:if>
 					<%}else{ %>
 					<li class="nav-item d-md-none">
 						<a href="Login" class="nav-link font-weight-bold">ログイン</a>
@@ -38,8 +46,8 @@
 				</ul>
 				<hr class="d-md-none border-secondary my-2">
 				<form action="SearchResult" method="POST" class="form-inline ml-right">
-					<label class="sr-only" for="kw">検索キーワード</label> <input type="search" class="form-control form-control-sm mr-sm-2 my-2 my-md-0" placeholder="キーワード" id="kw">
-					<button type="submit" class="btn btn-white btn-sm my-2 my-md-0" name="searchKeyWord">
+					<label class="sr-only" for="kw">検索キーワード</label> <input type="text" name="searchKeyWord" class="form-control form-control-sm mr-sm-2 my-2 my-md-0" placeholder="キーワード" id="kw">
+					<button type="submit" class="btn btn-white btn-sm my-2 my-md-0" name="action">
 						<i class="fas fa-search fa-lg search-gray"></i>
 					</button>
 				</form>

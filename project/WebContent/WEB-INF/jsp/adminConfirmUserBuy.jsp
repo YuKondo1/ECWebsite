@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>購入手続き完了</title>
+<title>注文確認</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -20,49 +20,52 @@
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
 </head>
 <body>
 <jsp:include page="/baselayout/headerNoImage.jsp"/>
 	<main>
 	<div class="row div1">
 		<div class="col-12 text-muted bg-light text-center"
-			style="margin-top: 80px; margin-bottom: 40px;">購入手続き完了</div>
-		<div class="col-md-2"></div>
-		<div class="col-12 col-md-8">
-			<table class="table text-center text-muted">
-				<thead class="thead-light">
+			style="margin-top: 80px;">注文確認</div>
+		<div class="col-1 text-muted text-center"
+			style="height: 350px; padding: 20px;"></div>
+		<div class="col-10 text-muted text-center"
+			style="height: 350px; padding: 20px;">
+			<table class="table table-hover">
+			<thead class="">
+				<tr>
+					<th>購入日時</th>
+					<th>購入者ID</th>
+					<th>合計金額</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="ubb" items="${ubbList}" varStatus="status">
 					<tr>
-						<th>商品</th>
-						<th>値段</th>
-					</tr>
-				</thead>
-				<tbody>
-				<c:forEach var="item" items="${cart}" varStatus="status">
-					<tr>
-						<td>${item.name}</td>
 						<td>
-						<c:set var="foo" value="${item.price}"/>
-						<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
-						${fn:replace(result, ",", ",")}円（税込）
+							<a href="AdminConfirmUserBuyDetail?id=${ubb.id}" style="text-decoration: none;">
+								<fmt:formatDate value="${ubb.createDate}" pattern="yyyy年MM月dd日"/>
+							</a>
+						</td>
+						<td>
+							<a href="AdminConfirmUserBuyDetail?id=${ubb.id}" style="text-decoration: none;">
+								${ubb.userId}
+							</a>
+						</td>
+						<td>
+							<a href="AdminConfirmUserBuyDetail?id=${ubb.id}" style="text-decoration: none;">
+								<c:set var="foo" value="${ubb.totalPrice}"/>
+								<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
+								${fn:replace(result, ",", ",")}円（税込）
+							</a>
 						</td>
 					</tr>
 				</c:forEach>
-				</tbody>
+			</tbody>
 			</table>
 		</div>
-		<div class="col-md-2"></div>
-		<div class="col-12 text-center text-muted">
-			<p style="margin-top: 20px;">合計：<c:set var="foo" value="${totalPrice}"/>
-			<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
-			${fn:replace(result, ",", ",")}円</p>
-			<hr style="max-width: 200px;">
-		</div>
-		<div class="col-12 text-center" style="margin-top: 40px;">
-			<p class="text-muted">購入が完了しました</p>
-			<hr style="max-width: 200px;">
-		</div>
+		<div class="col-1 text-muted text-center"
+			style="height: 350px; padding: 20px;"></div>
 	</div>
 	</main>
 <jsp:include page="/baselayout/footer.jsp"/>

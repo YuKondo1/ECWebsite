@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +26,7 @@
 <body>
 <jsp:include page="/baselayout/headerNoImage.jsp"/>
 	<main>
+	<form action="CartDeleteItem" method="POST">
 	<div class="row div1">
 		<div class="col-12 text-muted bg-light text-center"
 			style="margin-top: 80px; margin-bottom: 40px;">買い物かご</div>
@@ -33,17 +36,17 @@
 			<ul class="list-unstyled border p-3">
 				<li class="media"><a href="ItemDetail?id=${item.id}" class="mr-3"><img src="${item.image}" class="img-fluid" style="max-height: 100px;"></a>
 					<div class="media-body">
-						<a href="#" style="text-decoration: none;"> ${item.name}<br>
-							${item.price}
+						<a href="ItemDetail?id=${item.id}" style="text-decoration: none;"> ${item.name}<br>
+						<c:set var="foo" value="${item.price}"/>
+						<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
+						${fn:replace(result, ",", ",")}円（税込）
 						</a>
 						<p></p>
 						<div class="pretty p-default p-curve p-thick">
-							<form action="ItemDelete" method="POST">
-								<input type="checkbox" id="" name="" value="" />
+								<input type="checkbox" id="${status.index}" name="delete_item_id_list" value="${item.id}" />
 								<div class="state">
 									<label for=""><i class="mdi mdi-che"></i>削除</label>
 								</div>
-							</form>
 						</div>
 					</div>
 				</li>
@@ -51,16 +54,27 @@
 			</c:forEach>
 		</div>
 		<div class="col-1 col-sm-2 col-md-3"></div>
+		<c:if test="${totalPrice != 0 && totalPrice != null}">
 		<div class="col-12 text-center text-muted">
-			<p style="margin-top: 20px;">合計：${totalPrice.}円</p>
+			<p style="margin-top: 20px;">合計：<c:set var="foo" value="${totalPrice}"/>
+			<fmt:formatNumber value="${foo}" pattern="0,000" var="result"/>
+			${fn:replace(result, ",", ",")}円</p>
 			<hr style="max-width: 200px;">
 		</div>
+		</c:if>
+		<c:if test="${totalPrice == 0 || totalPrice == null}">
+		<div class="col-12 text-center text-muted">
+			<p style="margin-top: 20px;">合計：0円</p>
+			<hr style="max-width: 200px;">
+		</div>
+		</c:if>
 		<div class="col-12 text-center" style="margin-top: 40px;">
 			<p>${cartActionMessage}</p>
-			<button class="btn btn-outline-secondary">削除</button>
-			<button class="btn btn-outline-success" style="margin-left: 20px;">購入手続き</button>
+			<button class="btn btn-outline-secondary" type="submit" name="action">削除</button>
+			<a href="Buy?totalPrice=${totalPrice}" class="btn btn-outline-success" style="margin-left: 20px;">購入手続き</a>
 		</div>
 	</div>
+	</form>
 	</main>
 <jsp:include page="/baselayout/footer.jsp"/>
 </body>

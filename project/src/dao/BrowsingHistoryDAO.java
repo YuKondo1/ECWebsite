@@ -40,6 +40,10 @@ public class BrowsingHistoryDAO {
 		}
 	}
 
+	/**
+	 * 全閲覧履歴取得
+	 * @return
+	 */
 	public static ArrayList<BrowsingHistoryBeans> getAllBrowsingHistory() {
 		Connection conn = null;
 		PreparedStatement st = null;
@@ -72,13 +76,18 @@ public class BrowsingHistoryDAO {
 		return null;
 	}
 
+	/**
+	 * UserIdより閲覧履歴取得
+	 * @param targetUserId
+	 * @return
+	 */
 	public static ArrayList<ItemBeans> getAllItemByUserId(int targetUserId) {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ArrayList<ItemBeans> itemList = new ArrayList<ItemBeans>();
 		try {
 			conn = DBManager.getConnection();
-			st = conn.prepareStatement("SELECT item.*, b_history.* FROM item INNER JOIN b_history ON item.id = b_history.i_id WHERE u_id = ?");
+			st = conn.prepareStatement("SELECT distinct item.*, b_history.* FROM item INNER JOIN b_history ON item.id = b_history.i_id WHERE u_id = ? ORDER BY create_date DESC LIMIT 12");
 			st.setInt(1, targetUserId);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
@@ -104,5 +113,56 @@ public class BrowsingHistoryDAO {
 			}
 		}
 		return null;
+	}
+
+	public static boolean isOverlapItemId(int userId, int itemId) throws SQLException {
+		// 重複しているかどうか表す変数
+		boolean isOverlap = false;
+		Connection con = null;
+		PreparedStatement st = null;
+
+		try {
+			con = DBManager.getConnection();
+			st = con.prepareStatement("SELECT i_id FROM b_history WHERE u_id = ? and i_id = ?;");
+			st.setInt(1, userId);
+			st.setInt(2, itemId);
+			ResultSet rs = st.executeQuery();
+
+			System.out.println("searching loginId by inputItemId has been completed");
+
+			if (rs.next()) {
+				isOverlap = true;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+		System.out.println("overlap check has been completed");
+		return isOverlap;
+	}
+
+	public static void updateBrowsingHistory(int userId, int itemId) throws SQLException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			con = DBManager.getConnection();
+			st = con.prepareStatement("UPDATE b_history SET create_date = ? WHERE u_id = ? and i_id = ?;");
+			st.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+			st.setInt(2, userId);
+			st.setInt(3, itemId);
+			st.executeUpdate();
+			System.out.println("updateBrowsingHistory completed");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
 	}
 }

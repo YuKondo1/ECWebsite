@@ -26,7 +26,6 @@ public class Buy extends HttpServlet {
 			int userId = (int)session.getAttribute("userId");
 			Boolean isLogin = session.getAttribute("isLogin") != null ? (Boolean) session.getAttribute("isLogin") : false;
 			ArrayList<ItemBeans> cart = (ArrayList<ItemBeans>) session.getAttribute("cart");
-
 			if (!isLogin) {
 				// Login画面にリダイレクト
 				response.sendRedirect("Login");
@@ -34,7 +33,8 @@ public class Buy extends HttpServlet {
 				request.setAttribute("cartActionMessage", "購入する商品がありません");
 				request.getRequestDispatcher(Helper.CART_PAGE).forward(request, response);
 			} else {
-				// 配送方法をDBから取得
+				int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+				request.setAttribute("totalPrice", totalPrice);
 				request.getRequestDispatcher(Helper.BUY_PAGE).forward(request, response);
 			}
 		} catch (Exception e) {
