@@ -26,12 +26,15 @@ public class ItemDetail extends HttpServlet {
 		try {
 			//選択された商品のIDを型変換し利用
 			int id = Integer.parseInt(request.getParameter("id"));
-			int userId = (int)session.getAttribute("userId");
-			//閲覧履歴を登録
-			if (!BrowsingHistoryDAO.isOverlapItemId(userId,id)) {
-				BrowsingHistoryDAO.insertBrowsingHistory(userId, id);
-			}else {
-				BrowsingHistoryDAO.updateBrowsingHistory(userId, id);
+			boolean isLogin = session.getAttribute("isLogin")!=null?(boolean) session.getAttribute("isLogin"):false;
+			if(isLogin) {
+				int userId = (int)session.getAttribute("userId");
+				//閲覧履歴を登録
+				if (!BrowsingHistoryDAO.isOverlapItemId(userId,id)) {
+					BrowsingHistoryDAO.insertBrowsingHistory(userId, id);
+				}else {
+					BrowsingHistoryDAO.updateBrowsingHistory(userId, id);
+				}
 			}
 			//対象のアイテム情報を取得
 			ItemBeans item = ItemDAO.getItemById(id);

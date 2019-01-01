@@ -24,6 +24,11 @@ public class UserFavoriteList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
+			boolean isLogin = session.getAttribute("isLogin")!=null?(boolean) session.getAttribute("isLogin"):false;
+			if(!isLogin) {
+				response.sendRedirect("UserRegister");
+				return;
+			}
 			//ログイン中のユーザーIDからお気に入り商品を取得
 			int userId = (int)session.getAttribute("userId");
 			ArrayList<ItemBeans> itemList = UserFavoriteDAO.getAllItemByUserId(userId);

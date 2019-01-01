@@ -40,7 +40,10 @@
 		<div class="col-2 col-md-2 text-muted text-center"
 			style="height: 600px; padding: 20px;"></div>
 		<div class="col-12 text-center">
+			<% boolean isLogin = session.getAttribute("isLogin")!=null?(boolean) session.getAttribute("isLogin"):false; %>
+			<%if(isLogin){ %>
 			<a href="UserFavorite?id=${item.id}" class="btn btn-outline-secondary btn-sm my-2 my-md-0"><i class="fas fa-heart fa-lg"></i>お気に入り登録</a>
+			<%} %>
 			<a href="AddItemForCart?id=${item.id}" class="btn btn-outline-success btn-sm my-2 my-md-0" style="margin-left: 20px;"><i class="fas fa-cart-plus fa-lg"></i>カートに入れる</a>
 		</div>
 	</div>

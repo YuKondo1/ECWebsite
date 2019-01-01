@@ -53,7 +53,7 @@
 				</form>
 			</div>
 		</nav>
-		<div class="jumbotron" style="background: url(img/tenpo_iriguchi.jpg); background-size: cover; margin-top: 50px;">
+		<div class="jumbotron text-center" style="background: url(img/tenpo_iriguchi.jpg); background-size: cover; margin-top: 50px;">
 			<img src="img/uenologo_shirotouka.png" class="img-fluid" alt="うえのロゴ" width="346" height="362">
 		</div>
 	</header>

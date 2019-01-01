@@ -24,6 +24,11 @@ public class BrowsingHistory extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
+			boolean isLogin = session.getAttribute("isLogin")!=null?(boolean) session.getAttribute("isLogin"):false;
+			if(!isLogin) {
+				response.sendRedirect("UserRegister");
+				return;
+			}
 			int userId = (int)session.getAttribute("userId");
 			ArrayList<ItemBeans> itemList = BrowsingHistoryDAO.getAllItemByUserId(userId);
 			request.setAttribute("itemList", itemList);

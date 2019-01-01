@@ -27,7 +27,10 @@ public class Cart extends HttpServlet {
 			//買い物かご
 			ArrayList<ItemBeans> cartList = cart;
 			//合計金額
+			if(cartList != null) {
 			int totalPrice = Helper.getTotalItemPrice(cartList);
+			request.setAttribute("totalPrice", totalPrice);
+			}
 			//セッションにカートがない場合カートを作成
 			if (cart == null) {
 				cart = new ArrayList<ItemBeans>();
@@ -39,7 +42,6 @@ public class Cart extends HttpServlet {
 				cartActionMessage = "カートに商品がありません";
 			}
 			request.setAttribute("cartActionMessage", cartActionMessage);
-			request.setAttribute("totalPrice", totalPrice);
 			request.getRequestDispatcher(Helper.CART_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
