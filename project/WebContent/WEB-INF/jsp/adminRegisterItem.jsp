@@ -25,7 +25,7 @@
 	<div class="row div1 text-center">
 		<div class="col-12" style="height: 350px">
 			<h5 class="text-muted bg-light">商品登録</h5>
-			<form action="AdminRegisterResultItem" method="POST">
+			<form action="AdminRegisterResultItem" enctype="multipart/form-data" method="POST">
 				<dl>
 					<div class="form-group mb-2" style="margin-top: 30px">
 						<dt class="text-muted">商品名</dt>
@@ -46,9 +46,13 @@
 						</dd>
 					</div>
 					<div class="form-group mb-2" style="margin-top: 30px">
-						<dt class="text-muted">商品画像（追加したファイル名を入力）</dt>
+						<dt class="text-muted">商品画像</dt>
 						<dd>
-							<input type="text" name="image">
+						<label>
+						<span class="btn btn-light text-muted">
+							<input type="file" class="text-muted" name="file"/>
+						</span>
+						</label>
 						</dd>
 					</div>
 					<dt>

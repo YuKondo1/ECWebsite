@@ -3,20 +3,24 @@ package servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import base.Helper;
 import beans.ItemBeans;
 import dao.ItemDAO;
 
+
 /**
  * Servlet implementation class AdminRegisterResultItem
  */
 @WebServlet("/AdminRegisterResultItem")
+@MultipartConfig(location="/tmp")
 public class AdminRegisterResultItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,19 +31,21 @@ public class AdminRegisterResultItem extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+
 		try {
 			String inputName = request.getParameter("name");
 			String inputPriceS = request.getParameter("price");
 			int inputPrice = Integer.parseInt(inputPriceS);
 			String inputItemDetail = request.getParameter("itemDetail");
-			String inputImage = request.getParameter("image");
-
+			Part part = request.getPart("file");
+	        String name = this.getFileName(part);
+	        part.write(getServletContext().getRealPath("/img") + "/" + name);
 			ItemBeans ib = new ItemBeans();
 
 			ib.setName(inputName);
 			ib.setPrice(inputPrice);
 			ib.setItemDetail(inputItemDetail);
-			ib.setImage(inputImage);
+			ib.setImage("img/" + name);
 
 			ItemDAO.setItem(ib);
 			request.setAttribute("item", ib);
@@ -50,5 +56,17 @@ public class AdminRegisterResultItem extends HttpServlet {
 			response.sendRedirect("Error");
 		}
 	}
+
+	 private String getFileName(Part part) {
+	        String name = null;
+	        for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
+	            if (dispotion.trim().startsWith("filename")) {
+	                name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
+	                name = name.substring(name.lastIndexOf("\\") + 1);
+	                break;
+	            }
+	        }
+	        return name;
+	    }
 
 }
