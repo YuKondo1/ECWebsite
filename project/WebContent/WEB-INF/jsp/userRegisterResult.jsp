@@ -52,7 +52,7 @@
 						<dd>${uib.address}</dd>
 					</div>
 					<dt>
-						<a href="User" class="btn btn-outline-success" style="margin: 40px 0px">マイページへ移動</a>
+						<a href="Login" class="btn btn-outline-success" style="margin: 40px 0px">ログイン画面へ移動</a>
 					</dt>
 				</dl>
 			</form>

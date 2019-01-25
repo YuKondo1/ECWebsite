@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -33,19 +34,20 @@ public class AdminRegisterResultItem extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		try {
+			LocalDateTime d = LocalDateTime.now();
 			String inputName = request.getParameter("name");
 			String inputPriceS = request.getParameter("price");
 			int inputPrice = Integer.parseInt(inputPriceS);
 			String inputItemDetail = request.getParameter("itemDetail");
 			Part part = request.getPart("file");
 	        String name = this.getFileName(part);
-	        part.write(getServletContext().getRealPath("/img") + "/" + name);
+	        part.write(getServletContext().getRealPath("/img") + "/" + name + d);
 			ItemBeans ib = new ItemBeans();
 
 			ib.setName(inputName);
 			ib.setPrice(inputPrice);
 			ib.setItemDetail(inputItemDetail);
-			ib.setImage("img/" + name);
+			ib.setImage("img/" + name + d);
 
 			ItemDAO.setItem(ib);
 			request.setAttribute("item", ib);
