@@ -25,6 +25,8 @@ public class BuyResult extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
+			// xxxxx
+
 			int userId = (int)session.getAttribute("userId");
 			//買い物かご
 			ArrayList<ItemBeans> cartList = (ArrayList<ItemBeans>) session.getAttribute("cart");
