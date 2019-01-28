@@ -23,8 +23,11 @@ public class Buy extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
-			int userId = (int)session.getAttribute("userId");
 			Boolean isLogin = session.getAttribute("isLogin") != null ? (Boolean) session.getAttribute("isLogin") : false;
+			if(!isLogin) {
+				response.sendRedirect("UserRegister");
+				return;
+			}
 			ArrayList<ItemBeans> cart = (ArrayList<ItemBeans>) session.getAttribute("cart");
 			if (!isLogin) {
 				// Login画面にリダイレクト

@@ -40,6 +40,7 @@ public class BuyResult extends HttpServlet {
 			/* ====購入完了ページ表示用==== */
 			request.setAttribute("totalPrice", totalPrice);
 			// 購入完了ページ
+			session.removeAttribute("cart");
 			request.getRequestDispatcher(Helper.BUY_RESULT_PAGE).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

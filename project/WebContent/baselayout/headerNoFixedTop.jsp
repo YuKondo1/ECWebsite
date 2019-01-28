@@ -39,7 +39,11 @@
 					<%} %>
 				</ul>
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="Buy" class="nav-link"><i class="fas fa-shopping-cart fa-lg"></i></a></li>
+					<li class="nav-item">
+						<a href="Cart" class="nav-link">
+							<i class="fas fa-shopping-cart fa-lg"></i>
+						</a>
+					</li>
 				</ul>
 				<hr class="d-md-none border-secondary my-2">
 				<form action="SearchResult" method="POST" class="form-inline ml-right">
